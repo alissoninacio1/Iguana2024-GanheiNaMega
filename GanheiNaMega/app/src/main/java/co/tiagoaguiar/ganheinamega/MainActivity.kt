@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,9 +22,20 @@ class MainActivity : AppCompatActivity() {
         val btnGenerate: Button = findViewById(R.id.btn_generate)
 
         btnGenerate.setOnClickListener {
-            Log.i("test", "button clicked!")
+            val text  = editText.text.toString()
+            numberGenerator(text, txtResult)
         }
 
+    }
+
+    private fun numberGenerator(text: String, txtResult: TextView) {
+            if (text.isNotBlank()) {
+
+                if () {}
+                else {}
+            } else {
+                Toast.makeText(this, "informe un numero entre 6 e 15", Toast.LENGTH_LONG).show() //padrao de pop-up
+            }
     }
 
 }
