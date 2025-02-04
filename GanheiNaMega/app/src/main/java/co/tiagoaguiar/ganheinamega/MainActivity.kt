@@ -30,8 +30,12 @@ class MainActivity : AppCompatActivity() {
         prefs  = getSharedPreferences("db", Context.MODE_PRIVATE) //the data only will be related with this app, not others
         val result = prefs.getString("result", null)
 
-        if (result != null) {
+/*        if (result != null) {
             txtResult.text = "ultima aposta $result"
+        }*/
+
+        result?.let {
+            txtResult.text = "ultima aposta $it"
         }
 
         btnGenerate.setOnClickListener {
