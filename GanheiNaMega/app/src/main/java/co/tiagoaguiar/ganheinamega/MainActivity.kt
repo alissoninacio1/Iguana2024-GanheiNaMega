@@ -1,5 +1,7 @@
 package co.tiagoaguiar.ganheinamega
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,16 +13,26 @@ import android.widget.Toast
 import java.util.Random
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var prefs: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         //where you decided what the app will do
         setContentView(R.layout.activity_main)
 
+
         //search for the objects and get their reference
         val editText: EditText = findViewById(R.id.edit_number)
         val txtResult: TextView = findViewById(R.id.txt_result)
         val btnGenerate: Button = findViewById(R.id.btn_generate)
+
+        prefs  = getSharedPreferences("db", Context.MODE_PRIVATE) //the data only will be related with this app, not others
+        val result = prefs.getString("result", null)
+
+        if (result != null) {
+            txtResult.text = "ultima aposta $result"
+        }
 
         btnGenerate.setOnClickListener {
             val text = editText.text.toString()
@@ -56,6 +68,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         txtResult.text = numbers.joinToString(" - ")
+
+        val editor = prefs.edit()
+        editor.putString("result", txtResult.text.toString())
+
+        editor.apply()
     }
 }
 
